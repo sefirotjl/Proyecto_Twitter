@@ -12,6 +12,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Iniciar secion</h1>
+        <form name='inicio' action='login' method='post'>
+            Usuario(e-mail): <input type='text' name='email' value=''></br>
+            Contraseña: <input type='password' name='password' value=''></br>
+            <Input type='submit' name='login' value='Login'/>
+            <Input type='submit' name='register' value='Registrarse'/>
+        </form>
     </body>
 </html>
