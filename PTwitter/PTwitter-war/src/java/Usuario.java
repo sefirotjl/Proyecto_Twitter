@@ -8,18 +8,41 @@
  * @author Juancho
  */
 public class Usuario {
+    private String email;
     private String nombre;
-    private int ID;
-    private int[] sigID;
+    private String[] sigEmail;
     private String sigNombre;
-    private String[] mensajes;
+    private Comment[] comments;
+
+    public Usuario(String email, String nombre) {
+        this.email = email;
+        this.nombre = nombre;
+    }
+
+    public Usuario(String email, String nombre, String[] sigEmail, String sigNombre) {
+        this.email = email;
+        this.nombre = nombre;
+        this.sigEmail = sigEmail;
+        this.sigNombre = sigNombre;
+    }
+
+    public Usuario(String email, String nombre, String[] sigEmail, String sigNombre, Comment[] comments) {
+        this.email = email;
+        this.nombre = nombre;
+        this.sigEmail = sigEmail;
+        this.sigNombre = sigNombre;
+        this.comments = comments;
+    }
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, int ID) {
-        this.nombre = nombre;
-        this.ID = ID;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNombre() {
@@ -30,20 +53,12 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public int getID() {
-        return ID;
+    public String[] getSigEmail() {
+        return sigEmail;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public int[] getSigID() {
-        return sigID;
-    }
-
-    public void setSigID(int[] sigID) {
-        this.sigID = sigID;
+    public void setSigEmail(String[] sigEmail) {
+        this.sigEmail = sigEmail;
     }
 
     public String getSigNombre() {
@@ -54,18 +69,18 @@ public class Usuario {
         this.sigNombre = sigNombre;
     }
 
-    public String[] getMensajes() {
-        return mensajes;
+    public Comment[] getComments() {
+        return comments;
     }
 
-    public void setMensajes(String[] mensajes) {
-        this.mensajes = mensajes;
+    public void setComments(Comment[] comments) {
+        this.comments = comments;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.ID;
+        int hash = 7;
+        hash = 83 * hash + (this.email != null ? this.email.hashCode() : 0);
         return hash;
     }
 
@@ -78,7 +93,7 @@ public class Usuario {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (this.ID != other.ID) {
+        if ((this.email == null) ? (other.email != null) : !this.email.equals(other.email)) {
             return false;
         }
         return true;
@@ -86,8 +101,9 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "nombre=" + nombre + ", ID=" + ID + '}';
+        return "Usuario{" + "email=" + email + ", nombre=" + nombre + '}';
     }
     
     
+
 }
