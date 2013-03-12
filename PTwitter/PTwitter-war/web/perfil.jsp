@@ -41,7 +41,7 @@
                     <b>Menu</b><br>
                     Trending Topics<br>
                     <%
-                        if (!miPerfil && user.notSiguiendo(me, userProfile)) {
+                        if (!miPerfil && Consultas.notSiguiendo(me, userProfile)) {
                             out.println("<form name='frmSeguir' action='seguir' method='post'>");
                             out.println("<Input type='submit' name='seguir' value='Seguir'/></form>");
                         }
@@ -64,7 +64,7 @@
                         out.println("</td>");
                         out.println("</tr>");
                         out.println("</table>");
-                        comment[] comments = conexion.getCommentsByUser(userProfile);
+                        Comment[] comments = consulta.getCommentsByUser(userProfile);
                         for (comment c : comments) {
                             out.println("<table border='0'>");
                             out.println("<tr>");
