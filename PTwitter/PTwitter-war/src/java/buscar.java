@@ -34,15 +34,14 @@ public class buscar extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet buscar</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet buscar at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
+            if (request.getParameter("tipoBusqueda") == "usuario") {
+                String redirectURL = "usuarios.jsp?buscar=" + request.getParameter("buscar");;
+                response.sendRedirect(redirectURL);
+            } else {
+                String redirectURL = "hashes.jsp?buscar=" + request.getParameter("buscar");;
+                response.sendRedirect(redirectURL);
+            }
+        } finally {
             out.close();
         }
     }

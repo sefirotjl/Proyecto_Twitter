@@ -16,8 +16,15 @@
         <form name='inicio' action='login' method='post'>
             Usuario(e-mail): <input type='text' name='email' value=''></br>
             Contraseña: <input type='password' name='password' value=''></br>
+            Nombre*: <input type='text' name='name' value=''></br>
             <Input type='submit' name='login' value='Login'/>
-            <Input type='submit' name='register' value='Registrarse'/>
+            <Input type='submit' name='register' value='Registrarse'/></br>
         </form>
+        *Este parametro es unicamente necesario para cuando quieres registrarte</br>
+        <%
+            if (request.getParameter("resp") != null) {
+                out.print("<h1>!!!" + request.getParameter("resp") + "¡¡¡</h1>");
+            }
+        %>
     </body>
 </html>

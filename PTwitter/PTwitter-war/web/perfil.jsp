@@ -7,8 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    Usuario user = new Usuario();
-
     boolean miPerfil = false;
     String userProfile = request.getParameter("user");
     String me = pageContext.getAttribute("user").toString();

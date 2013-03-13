@@ -34,4 +34,11 @@ public class Consultas {
     public String[] getTrendingTopics(){
         return null;
     }
+    
+    public String crearUsuario(String email, String nombre, String password){
+        //regresas un string para que me reportes que paso al crear el usuario
+        //si hay un error me dices si es porque ya existe el usuario
+        //o porque puede que este muy lagor el nombre o cosas de esas
+        return null;   
+    } 
 }

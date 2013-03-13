@@ -33,14 +33,20 @@ public class login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            if (request.getParameter("tipoBusqueda") == "usuario") {
-                String redirectURL = "usuarios.jsp?buscar=" + request.getParameter("buscar");;
-                response.sendRedirect(redirectURL);
+            response.sendRedirect("http://www.google.com");
+            /*
+            Scanner sc = new Scanner();
+            String res = sc.verificaMail(request.getParameter("mail"));
+            if (res == "OK") {
+                if (request.getParameter("login") == "Login") {
+                    
+                } else {
+                }
             } else {
-                String redirectURL = "hashes.jsp?buscar=" + request.getParameter("buscar");;
+                String redirectURL = "index.jsp?resp=" + res;
                 response.sendRedirect(redirectURL);
             }
+            */
         } finally {
             out.close();
         }
