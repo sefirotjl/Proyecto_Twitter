@@ -34,13 +34,25 @@ public class buscar extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
-            if (request.getParameter("tipoBusqueda") == "usuario") {
-                String redirectURL = "usuarios.jsp?buscar=" + request.getParameter("buscar");;
-                response.sendRedirect(redirectURL);
-            } else {
-                String redirectURL = "hashes.jsp?buscar=" + request.getParameter("buscar");;
+            if (request.getParameter("tipoBusqueda").equals("usuario") ) {
+
+                String redirectURL = "usuarios.jsp?buscar=" + request.getParameter("buscar");
                 response.sendRedirect(redirectURL);
             }
+            if (request.getParameter("tipoBusqueda").equals("hashtag")) {
+                String redirectURL = "hashes.jsp?buscar=" + request.getParameter("buscar");
+                response.sendRedirect(redirectURL);
+            }
+            if (request.getParameter("tipoBusqueda").equals("xusuario") ) {
+
+                String redirectURL = "usuarios.jsp?xbuscar=" + request.getParameter("xbuscar");
+                response.sendRedirect(redirectURL);
+            }
+            if (request.getParameter("tipoBusqueda").equals("xhashtag")) {
+                String redirectURL = "hashes.jsp?xbuscar=" + request.getParameter("xbuscar");
+                response.sendRedirect(redirectURL);
+            }
+
         } finally {
             out.close();
         }

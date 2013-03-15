@@ -5,22 +5,18 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import recursos.Consultas;
 
 /**
  *
  * @author Juancho
  */
-@WebServlet(name = "seguir", urlPatterns = {"/seguir"})
-public class seguir extends HttpServlet {
+@WebServlet(name = "cerrarSesion", urlPatterns = {"/cerrarSesion"})
+public class cerrarSesion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -37,37 +33,11 @@ public class seguir extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-           if (this.getServletConfig().getServletContext().getAttribute("login") != null
-                    && ((Boolean) this.getServletConfig().getServletContext().getAttribute("login"))) {
-
-                if (request.getParameter("email") != null
-                        && request.getParameter("email") != "") {
-                    Consultas con = new Consultas();
-                    String resp = con.seguir((String) this.getServletConfig().getServletContext().getAttribute("email"),(String) request.getParameter("email"));
-                    if (resp.equals("OK")) {
-                        response.sendRedirect("perfil.jsp");
-                    } else {
-                        
-                        response.sendRedirect("perfil.jsp?mensaje="+resp);
-                    }
-                } else {
-                    
-                    response.sendRedirect("perfil.jsp?merror");
-                }
-            } else {
-                String mensaje = "Acceso ilegal al area de seguir";
-                response.sendRedirect("error.jsp?mensaje=" + mensaje);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(seguir.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(seguir.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(seguir.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(seguir.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+            this.getServletConfig().getServletContext().removeAttribute("email");
+            this.getServletConfig().getServletContext().removeAttribute("nombre");
+            this.getServletConfig().getServletContext().removeAttribute("login");
+            response.sendRedirect("index.jsp");
+        } finally {            
             out.close();
         }
     }

@@ -1,3 +1,5 @@
+package recursos;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -12,6 +14,13 @@ public class Usuario {
     private String nombre;
     private int[] sigID;
     private Comment[] comments;
+
+    public Usuario(String email, String nombre, int[] sigID, Comment[] comments) {
+        this.email = email;
+        this.nombre = nombre;
+        this.sigID = sigID;
+        this.comments = comments;
+    }
 
     public Usuario(String email, String nombre) {
         this.email = email;

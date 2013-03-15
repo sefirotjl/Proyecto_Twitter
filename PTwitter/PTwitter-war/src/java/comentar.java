@@ -3,8 +3,6 @@
  * and open the template in the editor.
  */
 
-import recursos.Scanner;
-import recursos.Consultas;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,13 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import recursos.Consultas;
 
 /**
  *
  * @author Juancho
  */
-@WebServlet(name = "login", urlPatterns = {"/login"})
-public class login extends HttpServlet {
+@WebServlet(name = "comentar", urlPatterns = {"/comentar"})
+public class comentar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -38,55 +37,38 @@ public class login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            //verificamos que este bien escrito el mail
-            Scanner sc = new Scanner();
+            if (this.getServletConfig().getServletContext().getAttribute("login") != null
+                    && ((Boolean) this.getServletConfig().getServletContext().getAttribute("login"))) {
 
-            String email = request.getParameter("email");
-
-            Consultas con = new Consultas();
-            if (request.getParameter("login") != null) {
-                String res;
-                out.println("voy a hacer el login");
-                res = con.login(email, request.getParameter("password"));
-                out.println(res);
-                if (res == "OK") {
-                    out.println("voy a agregar las variables de entorno");
-                    this.getServletConfig().getServletContext().setAttribute("email", email);
-                    String nombre = con.getNombreByCorreo(email);
-                    this.getServletConfig().getServletContext().setAttribute("nombre", nombre);
-                    this.getServletConfig().getServletContext().setAttribute("login", true);
-                    out.println("voy a redireccionar");
-                    response.sendRedirect("perfil.jsp?email=" + email);
+                if (request.getParameter("comentario") != null
+                        && request.getParameter("comentario") != "") {
+                    Consultas con = new Consultas();
+                    String resp = con.publicaComment((String) request.getParameter("comentario"),
+                            (String) this.getServletConfig().getServletContext().getAttribute("email"));
+                    if (resp.equals("OK")) {
+                        response.sendRedirect("perfil.jsp");
+                    } else {
+                        String mensaje = "No se pudo agregar el comentario";
+                        response.sendRedirect("perfil.jsp?mensaje="+mensaje);
+                    }
                 } else {
-                    response.sendRedirect("index.jsp?resp=" + res);
+                    String mensaje = "No se pueden hacer comentarios vacos";
+                    response.sendRedirect("perfil.jsp?merror=" + mensaje);
                 }
-
             } else {
-
-                String nombre = request.getParameter("nombre");
-                String password = request.getParameter("password");
-                out.println("voy a agregar a la base de datos");
-                String respc = con.registraUsuario(email, password, nombre);
-                out.println("logre agregar, voy a redireccionar");
-                if (respc == "OK") {
-                    response.sendRedirect("index.jsp?resp=El usuario se agrego con exito, ya puedes iniciar sesion");
-                } else {
-                    response.sendRedirect("index.jsp?resp=" + respc);
-                }
+                String mensaje = "Acceso ilegal al area de comentarios";
+                response.sendRedirect("error.jsp?mensaje=" + mensaje);
             }
 
+
         } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-            out.println("Error tipo 1: " + ex.getMessage());
+            Logger.getLogger(comentar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-            out.println("Error tipo " + login.class.getName() + ": " + ex.getMessage());
+            Logger.getLogger(comentar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-            out.println("Error tipo 3: " + ex.getMessage());
+            Logger.getLogger(comentar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-            out.println("Error tipo 4: " + ex.getMessage());
+            Logger.getLogger(comentar.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
